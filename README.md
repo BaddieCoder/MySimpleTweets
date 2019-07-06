@@ -51,7 +51,7 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='https://github.com/BaddieCoder/MySimpleTweets/blob/master/walkthrough.gif?raw=true'' alt='Video Walkthrough' />
+<img src=''https://github.com/BaddieCoder/MySimpleTweets/blob/master/walkthrough.gif?raw=true'' alt='Video Walkthrough' />
 
 ## Notes
 
