@@ -15,7 +15,7 @@ import com.codepath.apps.restclienttemplate.models.Tweet;
 
 import java.util.List;
 
-
+//The adapter connects the data and our viewholders
 public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
 
     private List<Tweet> mtweets;
@@ -59,7 +59,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder>{
         //changed to represent the number of tweets that we actually have
     }
 
-    //passing tweets arRay
+    //passing tweets array
     //for each row inflate layout and pass to vieweholder
     public static class ViewHolder extends RecyclerView.ViewHolder{
         public ImageView ivProfileImage;

@@ -1,6 +1,5 @@
 package com.codepath.apps.restclienttemplate;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -26,7 +25,6 @@ import cz.msebera.android.httpclient.Header;
 
 public class TimelineActivity extends AppCompatActivity {
     //here is where we populate data
-    private Context context;
 
         private TwitterClient client;
         //reference to the client we're accessing
@@ -43,10 +41,10 @@ public class TimelineActivity extends AppCompatActivity {
             setContentView(R.layout.activity_timeline);
             //the contect is this object
             client = TwitterApp.getRestClient(this);
-
+            //the client makes the call to twitter
 
             //before populating timeline
-            //fine recycler view
+            //set recycler view
             rvTweets = (RecyclerView) findViewById(R.id.rvTweet);
             //instantiate data source
             tweets = new ArrayList<>();
@@ -58,6 +56,9 @@ public class TimelineActivity extends AppCompatActivity {
 
             //set the adapter
             rvTweets.setAdapter(tweetAdapter);
+
+            //first we hook up our view items from our xml files to empty place holders
+            //then we setup the adapter and fill them in populate timeline
             populateTimeline();
         }
 
@@ -69,20 +70,25 @@ public class TimelineActivity extends AppCompatActivity {
             return true;
         }
 
-  //private final int REQUEST_CODE = 20;
-        //we simply called compose action in the xml file
+
+    //we simply called compose action in the xml file
     //for a toast we can just use ''this" for context to test the click , remember .show
+    //Result_ok and 200 are just paramaters that we had to include but we dont really use them here
     public void onComposeAction(MenuItem menuItem ) {
         Toast.makeText(this,"clicked compose", Toast.LENGTH_LONG).show();
-
 
 
         Intent intent = new Intent(TimelineActivity.this, ComposeActivity.class);
 
         startActivityForResult(intent,200);
-
+        //here we just created an intent , the context is the current activity and also used the class we're broadcasting too as a parameter
+        //we also used start for result which means that we're looking for data to be returned back
+        //because of that we had to implement onActivityResult to process that data
     }
 
+    //This function takes the data from our compose activity , unwraps it and manually adds it to our timeline
+    //we do this so we dont have to refresh the entire page , and we need parcel in order to wrap data to pass back
+    //from an intent
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // REQUEST_CODE is defined above
@@ -104,14 +110,14 @@ public class TimelineActivity extends AppCompatActivity {
 
     }
 
-
+//populate timeline adds all of the tweets to the array
     private void populateTimeline(){
             client.getHomeTimeline(new JsonHttpResponseHandler(){
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                     //Log.d("TwitterClient", response.toString());
-                    //iterate through the array and for each enety convert to a tweet model
-                    //add the tweed to the array we've made
+                    //iterate through the array and for each item convert to a tweet model
+                    //add the tweet to the array we've made
                     //notify the adapter we added an irem
 
                     for (int i = 0; i<response.length(); i++){

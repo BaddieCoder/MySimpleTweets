@@ -15,6 +15,8 @@ import java.util.Locale;
 //in this case its a tweet but it could be a news story and we're grabbing the headline
 //and an image
 
+//Parcel is basically used to wrap data to pass back to an intent
+
 @Parcel
 public class Tweet {
 
@@ -24,6 +26,9 @@ public class Tweet {
     public String createdAt;
     public String date;
 
+
+    //everytime we create a new tweet object in a different class, it calls this method
+    //and populates the tweet with data from the call to the json object - also calls method to get time
    public static Tweet fromJSON (JSONObject jsonObject) throws JSONException {
         Tweet tweet = new Tweet();
 
@@ -38,6 +43,8 @@ public class Tweet {
     }
 
     // getRelativeTimeAgo("Mon Apr 01 21:16:23 +0000 2014");
+    //given method that get the time from when the tweet was uploaded
+    //Twitter Format is defined by twitter but could be changed if you want
     public String getRelativeTimeAgo(String rawJsonDate) {
         String twitterFormat = "EEE MMM dd HH:mm:ss ZZZZZ yyyy";
         SimpleDateFormat sf = new SimpleDateFormat(twitterFormat, Locale.ENGLISH);
