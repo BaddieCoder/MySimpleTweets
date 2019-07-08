@@ -25,6 +25,7 @@ public class Tweet {
     public User user;
     public String createdAt;
     public String date;
+    // hello
 
 
     //everytime we create a new tweet object in a different class, it calls this method
